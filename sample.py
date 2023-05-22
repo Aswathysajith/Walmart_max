@@ -1,43 +1,60 @@
+# print the highest order id , profit and product name
 
 import csv
 
-# read the data with csv into list 'pop'
-pop = []
-with open ('Walmart.csv', 'r') as file:
-    csv_reader = csv.reader(file, delimiter=',')
 
-    for row in csv_reader:
-        pop.append(row)
+def unique_orders(csv_file):
+    orders = {}
 
-# print the first 5 rows of the table (5 first elements of the list)
-# for row in range(0,5):
-#     print(pop[row])
-print(pop[0])
+    with open(csv_file, 'r') as file:
+        reader = csv.DictReader(file)
 
+        for row in reader:
+            order_id = row['Order ID']
+            profit = float(row['Profit'])
+            product_name = row['Product Name']
 
+            if order_id not in orders:
+                orders[order_id] = {'profit': profit, 'products': [product_name]}
+            else:
+                if profit > orders[order_id]['profit']:
+                    orders[order_id]['profit'] = profit
+                orders[order_id]['products'].append(product_name)
 
-
-#
-#
-# minimum value of the order
-
-d={}
-# for row in pop[1:]:
-#     order_id=row[0]
-#     profit=float(row[-1])
-#     if order_id in d.keys():
-#         d[order_id]=min(profit,d[order_id])
-#     else:
-#         d[order_id]=profit
-#
-# print(d)
+    for order_id, data in orders.items():
+        print(f"Order ID: {order_id}")
+        print(f"Highest Profit: {data['profit']}")
+        print("Product Names:")
+        for product_name in set(data['products']):
+            print(product_name)
+        print()
 
 
-for row in pop[1:]:
-    order_id=row[0]
-    discount=float(row[-1])
-    if order_id in d.keys():
-        d[order_id]=max(discount,d[order_id])
-    else:d[order_id]=discount
-print(d)
+# Example usage
+csv_file_path = 'Walmart.csv'
+
+try:
+    unique_orders(csv_file_path)
+except FileNotFoundError:
+    print("CSV file not found.")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
