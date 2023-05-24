@@ -1,0 +1,47 @@
+print("\n highest profit orderid and their product list\n ")
+
+import csv
+
+def heighest_profit_order(csv_file):
+    heighest_profit = float('-inf')
+    heighest_profit_order_id = None
+
+    with open(csv_file, 'r') as file:
+        reader = csv.DictReader(file)
+
+        for row in reader:
+            profit = float(row['Profit'])
+            order_id = row['Order ID']
+
+            if profit > heighest_profit:
+                heighest_profit = profit
+                heighest_profit_order_id = order_id
+
+    return heighest_profit_order_id
+
+
+def product_list(csv_file, order_id):
+    with open(csv_file, 'r') as file:
+        reader = csv.DictReader(file)
+
+        for row in reader:
+            if row['Order ID'] == order_id:
+                print(row['Product Name'])
+
+
+
+csv_file_path = 'Walmart.csv' 
+
+try:
+    heighest_profit_order_id = heighest_profit_order(csv_file_path)
+    print(f"Highest Profit Order ID: {heighest_profit_order_id}")
+    print("Product List:")
+
+    if heighest_profit_order_id is not None:
+        product_list(csv_file_path, heighest_profit_order_id)
+    else:
+        print("No order found.")
+except FileNotFoundError:
+    print("CSV file not found.")
+
+
