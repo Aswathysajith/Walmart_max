@@ -30,7 +30,7 @@ def print_product_list(csv_file, customer_name):
 
 
 
-csv_file_path = 'Walmart.csv'  # Replace with the actual file path
+csv_file_path = 'Walmart.csv'  
 
 try:
     highest_profit_customername = get_highest_profit_customer_name(csv_file_path)
