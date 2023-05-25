@@ -1,1 +1,46 @@
+# Write  program to print highest profit customer name and their product list
+
+import csv
+
+def get_highest_profit_customer_name(csv_file):
+    highest_profit = float(0)
+    highest_profit_customername = None
+
+    with open(csv_file, 'r') as file:
+        reader = csv.DictReader(file)
+
+        for row in reader:
+            profit = float(row['Profit'])
+            customer_name = row['Customer Name']
+
+            if profit > highest_profit:
+                highest_profit = profit
+                highest_profit_customername = customer_name
+
+    return highest_profit_customername
+
+
+def print_product_list(csv_file, customer_name):
+    with open(csv_file, 'r') as file:
+        reader = csv.DictReader(file)
+
+        for row in reader:
+            if row['Customer Name'] == customer_name:
+                print(row['Product Name'])
+
+
+
+csv_file_path = 'Walmart.csv'  # Replace with the actual file path
+
+try:
+    highest_profit_customername = get_highest_profit_customer_name(csv_file_path)
+    print(f"Highest Profit Customer Name: {highest_profit_customername}")
+    print("Product List:")
+
+    if highest_profit_customername is not None:
+        print_product_list(csv_file_path, highest_profit_customername)
+    else:
+        print("No order found.")
+except FileNotFoundError:
+    print("CSV file not found.")
 
