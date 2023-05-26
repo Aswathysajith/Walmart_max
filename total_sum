@@ -33,3 +33,12 @@ csv_file = 'Walmart.csv'  # Replace with your CSV file path
 customer, total_profit = find_highest_profit_customer(csv_file)
 print("Customer name with highest profit:", customer)
 print("Total profit:", total_profit)
+
+
+OUTPUT
+```````
+
+print highest profit customer name and total sum of the customer profit 
+ 
+Customer name with highest profit: Raymond Buch
+Total profit: 6807.0879
