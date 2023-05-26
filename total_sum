@@ -1,0 +1,35 @@
+print("\n print highest profit customer name and total sum of the customer profit \n ")
+
+import csv
+
+def find_highest_profit_customer(csv_file):
+    customer_profit = {}
+
+    with open(csv_file, 'r') as file:
+        reader = csv.reader(file)
+        next(reader)  # Skip the header row
+
+        for row in reader:
+            customername = row[4]
+            profit = float(row[15])
+
+            if customername in customer_profit:
+                customer_profit[customername] += profit
+            else:
+                customer_profit[customername] = profit
+
+    highest_profit = 0
+    highest_profit_customer = ''
+
+    for customername, profit in customer_profit.items():
+        if profit > highest_profit:
+            highest_profit = profit
+            highest_profit_customer = customername
+
+    return highest_profit_customer, highest_profit
+
+
+csv_file = 'Walmart.csv'  # Replace with your CSV file path
+customer, total_profit = find_highest_profit_customer(csv_file)
+print("Customer name with highest profit:", customer)
+print("Total profit:", total_profit)
