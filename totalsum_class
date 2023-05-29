@@ -1,0 +1,42 @@
+import csv
+
+class Customer:
+    def __init__(self, name):
+        self.name = name
+        self.profit = 0
+
+def get_highest_profit_customer(csv_file):
+    customers = {}
+
+    with open(csv_file, 'r') as file:
+        reader = csv.DictReader(file)
+        for row in reader:
+            name = row['Customer Name']
+            profit = float(row['Profit'])
+            if name not in customers:
+                customers[name] = Customer(name)
+            customers[name].profit += profit
+
+    highest_profit = float(0)
+    highest_profit_customer = None
+
+    for customer in customers.values():
+        if customer.profit > highest_profit:
+            highest_profit = customer.profit
+            highest_profit_customer = customer
+
+    return highest_profit_customer
+
+
+csv_file = 'Walmart.csv'
+highest_profit_customer = get_highest_profit_customer(csv_file)
+
+
+if highest_profit_customer:
+    print("Highest Profit Customer Name:", highest_profit_customer.name)
+    print("Total sum:", highest_profit_customer.profit)
+
+OUTPUT
+```````
+Highest Profit Customer Name: Raymond Buch
+Total sum: 6807.0879
